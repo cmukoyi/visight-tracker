@@ -19,6 +19,10 @@ stages:
   - job: BuildJob
     displayName: 'Build Java and Web'
     steps:
+    - checkout: self
+      displayName: 'Checkout with submodules'
+      submodules: true
+
     - task: JavaToolInstaller@0
       displayName: 'Install Java 17'
       inputs:
