@@ -43,9 +43,9 @@ stages:
         tasks: 'build'
 
     - task: NodeTool@0
-      displayName: 'Install Node.js 16'
+      displayName: 'Install Node.js 20'
       inputs:
-        versionSpec: '16.x'
+        versionSpec: '20.x'
 
     - script: |
         cd traccar-web
