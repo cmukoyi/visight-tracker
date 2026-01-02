@@ -11,6 +11,9 @@ variables:
   vmIP: '52.238.208.198'
   vmUser: 'adminTelematics'
   deployPath: '/home/adminTelematics/visight-tracker'
+  # Set to 'true' to deploy all files including lib folder (dependencies)
+  # Default 'false' only deploys app JAR and web files for faster deployments
+  fullDeploy: 'false'
 
 stages:
 - stage: Build
@@ -53,15 +56,26 @@ stages:
         npm run build
       displayName: 'Build Web Interface'
 
+    # Fast incremental deployment (default)
     - task: CopyFiles@2
-      displayName: 'Copy Build Artifacts'
+      displayName: 'Copy Build Artifacts (Incremental)'
+      condition: ne(variables['fullDeploy'], 'true')
+      inputs:
+        Contents: |
+          target/tracker-server.jar
+          traccar-web/build/**
+          traccar.xml
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+    # Full deployment including dependencies (when fullDeploy=true)
+    - task: CopyFiles@2
+      displayName: 'Copy Build Artifacts (Full)'
+      condition: eq(variables['fullDeploy'], 'true')
       inputs:
         Contents: |
           target/**
           traccar-web/build/**
           traccar.xml
-          logs/**
-          data/**
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
     - task: PublishBuildArtifacts@1
