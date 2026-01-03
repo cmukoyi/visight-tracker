@@ -13,7 +13,7 @@ variables:
   deployPath: '/home/adminTelematics/visight-tracker'
   # Set to 'true' to deploy all files including lib folder (dependencies)
   # Default 'false' only deploys app JAR and web files for faster deployments
-  fullDeploy: 'false'
+  fullDeploy: 'true'
 
 stages:
 - stage: Build
