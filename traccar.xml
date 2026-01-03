@@ -11,5 +11,7 @@
 
     <entry key='web.path'>./traccar-web/build</entry>
     <entry key='web.registration'>true</entry>
+    
+    <entry key='web.attributes.colorPrimary'>#2F769B</entry>
 
 </properties>
